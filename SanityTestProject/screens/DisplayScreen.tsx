@@ -12,15 +12,21 @@ import { useWordContext } from '../WordContextProvider';
 const DisplayScreen = ({ navigation }: RootStackScreenProps<'DisplayScreen'>) => {
   const { chosenWordId } = useWordContext();
   const { terms, status } = useTerms();
-
+  console.log("terms")
+  console.log(terms)
+  var termName = terms[0].name
+  console.log(termName)
+  console.log("chosenWordId")
+  console.log(chosenWordId)
   const term = WordUtils.getTermById(terms, chosenWordId);
-
+  
   useEffect(() => {
-    navigation.setOptions({
+    navigation.setOptions = {
       title: WordUtils.getTitle(term),
-    });
+    };
   }, [term]);
 
+  
 
   return (
     <SafeAreaView>
@@ -36,7 +42,11 @@ const DisplayScreen = ({ navigation }: RootStackScreenProps<'DisplayScreen'>) =>
       >
         <Text>poop</Text>
       </View>
-      <WordViewBody term={term} status={status} />
+      <View>
+        <WordViewBody term={term} status={status} />
+        <Text>pee?</Text>
+        <Text>{termName}</Text>
+      </View>
     </SafeAreaView>
   );
 };
@@ -59,6 +69,42 @@ const components: PortableTextComponents = {
 
 
 
+// const WordViewBody = ({
+//   term,
+//   status,
+// }: {
+//   term: Word;
+//   status: LoadingStatus;
+// }) => {
+//   if (status.loading) return <Loading />;
+//   if (status.errored) return <Errored />;
+
+//   //TODO: Investigate undefined term
+//   if (!term) return <Loading />;
+
+//   const { addBookmark } = useBookmarkContext();
+
+//   //console.log(term);
+  
+//   return (
+//     <View>
+//       <Text style={{ fontSize: 30, marginBottom: 5, marginLeft: 5, backgroundColor: 'red' }}>{term.name}</Text>
+//       <Text>{term._id}</Text>
+//       {/* <PortableText 
+//         value={term.explanation} 
+//         components={components}
+//       /> */}
+//       <Text>Port text no workie</Text>
+//       <Divider style={{ marginVertical: 10 }} />
+//       <Button
+//         title="Bookmark this term"
+//         onPress={() => addBookmark(term._id.toString())}
+//       />
+//     </View>
+//   );
+// };
+
+
 const WordViewBody = ({
   term,
   status,
@@ -66,37 +112,20 @@ const WordViewBody = ({
   term: Word;
   status: LoadingStatus;
 }) => {
+  
   if (status.loading) return <Loading />;
   if (status.errored) return <Errored />;
 
   //TODO: Investigate undefined term
-  if (!term) return <Loading />;
+  if (!term) return (<View><Text>loading</Text></View>);
 
-  const { addBookmark } = useBookmarkContext();
 
-  //console.log(term);
-  
   return (
     <View>
-      <Text style={{ fontSize: 30, marginBottom: 5, marginLeft: 5 }}>{term.term}</Text>
-      <Text>{term.definition}</Text>
-      <Text>{term.explanation[0].children[0].text}</Text>
-      <Text>{term.acronym}</Text>
-      <Text>{term._id}</Text>
-      {/* <PortableText 
-        value={term.explanation} 
-        components={components}
-      /> */}
-      <Text>Port text no workie</Text>
-      <Divider style={{ marginVertical: 10 }} />
-      <Button
-        title="Bookmark this term"
-        onPress={() => addBookmark(term._id.toString())}
-      />
+      <Text>{term}!</Text>
     </View>
-  );
-};
-
+  )
+}
 
 
 // const DisplayScreen = () => {

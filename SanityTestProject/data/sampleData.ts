@@ -14,8 +14,12 @@ export class WordUtils {
   }
 
   static getTitle(word: Word | undefined) {
-    if (!word) return undefined;
-    return (word.acronym ? word.acronym + ': ' : '') + word.term;
+    if (!word) {
+      console.log("!word")
+      return undefined;
+    }
+    //return (word.acronym ? word.acronym + ': ' : '') + word.term;
+    return word.name;
   }
 
   static getWordsFromIds(words: Word[], ids: string[]): Word[] {
